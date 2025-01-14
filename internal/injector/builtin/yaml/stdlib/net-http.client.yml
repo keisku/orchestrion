@@ -125,9 +125,8 @@ aspects:
               if port, err := strconv.Atoi(url.Port()); err == nil {
                 opts = append(opts, __dd_tracer_Tag(ext.NetworkDestinationPort, port))
               }
-              slog.InfoContext(req.Context(), "round trip before starting a span", slog.String("request", resourceName))
               span, ctx := __dd_tracer_StartSpanFromContext({{ $req }}.Context(), spanName, opts...)
-              slog.InfoContext(ctx, "round trip after starting a span", slog.String("request", resourceName))
+              slog.InfoContext(ctx, "round trip", slog.String("request", resourceName))
               {{ $req }} = {{ $req }}.Clone(ctx)
               defer func() {
                 if !events.IsSecurityError({{ $err }}) {
