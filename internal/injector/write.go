@@ -43,6 +43,7 @@ func (i *Injector) writeModifiedFile(ctx context.Context, decorator *decorator.D
 	if err := format.Node(&buf, restorer.Fset, astFile); err != nil {
 		return filename, fmt.Errorf("formatting %q: %w", filename, err)
 	}
+	fmt.Printf("%s:\n%s\n", filename, buf.String())
 
 	if i.ModifiedFile != nil {
 		filename = i.ModifiedFile(filename)
